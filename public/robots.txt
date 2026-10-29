@@ -3,4 +3,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://echoleaf-demo.netlify.app/sitemap.xml
+Sitemap: https://echoleaf-landing.netlify.app/sitemap.xml

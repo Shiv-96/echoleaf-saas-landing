@@ -6,7 +6,7 @@ Built with React, Vite and Tailwind CSS v4, and deployed on Netlify.
 > **Note:** This is a sample website for portfolio and demonstration purposes.
 > Echoleaf and every company, person and quote on the page are fictional.
 
-**Live demo:** https://echoleaf-demo.netlify.app
+**Live demo:** [echoleaf-landing.netlify.app](https://echoleaf-landing.netlify.app)
 
 ![Echoleaf landing page, light theme](docs/screenshot-light.png)
 ![Echoleaf landing page, dark theme](docs/screenshot-dark.png)
@@ -79,7 +79,7 @@ SVG in Chrome and take a node screenshot from DevTools.
 2. In Netlify, choose **Add new project → Import an existing project → GitHub**, then pick the repository.
 3. Netlify reads the build settings from `netlify.toml` (`npm run build`, publish `dist`).
 4. Enable **Forms → form detection** in the project settings, then redeploy.
-5. Optionally rename the site and update the site URL in the files listed above.
+5. The site is deployed as `echoleaf-landing`. If you rename it, update the site URL in the files listed above.
 
 No `_redirects` file is needed: this is a single page, and Netlify serves `dist/404.html` for unknown URLs.
 
