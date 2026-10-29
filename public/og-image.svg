@@ -1,0 +1,33 @@
+<!--
+  Source artwork for the 1200x630 social preview image.
+  public/og-image.png is exported from this file (see README). Social networks do not accept SVG previews.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B0D17" />
+      <stop offset="1" stop-color="#1A1E3A" />
+    </linearGradient>
+    <radialGradient id="glow" cx="260" cy="60" r="560" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5B5BF6" stop-opacity="0.45" />
+      <stop offset="1" stop-color="#5B5BF6" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="tile" x1="0" y1="0" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5B5BF6" />
+      <stop offset="1" stop-color="#22D3EE" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <rect width="1200" height="630" fill="url(#glow)" />
+
+  <g transform="translate(96 96)">
+    <rect width="72" height="72" rx="20" fill="url(#tile)" />
+    <path transform="scale(2.25)" d="M9 23c0-8 5.5-13 14-13 0 8.5-5.5 13.5-14 13z" fill="#ffffff" />
+  </g>
+  <text x="192" y="146" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="40" font-weight="700" fill="#EEF0FA">Echoleaf</text>
+
+  <text x="96" y="330" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="72" font-weight="800" fill="#EEF0FA">Turn scattered feedback</text>
+  <text x="96" y="420" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="72" font-weight="800" fill="#A3A3FF">into product decisions</text>
+  <text x="96" y="520" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="30" fill="#9AA3B8">Customer feedback tool · Sample website</text>
+</svg>

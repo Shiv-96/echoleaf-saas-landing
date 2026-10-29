@@ -1,0 +1,6 @@
+# Allow all crawlers and point them to the sitemap.
+# Replace the domain after you rename your Netlify site.
+User-agent: *
+Allow: /
+
+Sitemap: https://echoleaf-demo.netlify.app/sitemap.xml

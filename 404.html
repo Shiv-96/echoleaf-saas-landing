@@ -1,0 +1,37 @@
+<!doctype html>
+<!--
+  Static 404 page. Vite builds it to dist/404.html and Netlify serves it
+  automatically for any URL that does not exist. It reuses the same styles and theme.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page not found | Echoleaf</title>
+    <meta name="description" content="The page you are looking for does not exist on the Echoleaf sample website." />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#f8f9fc" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b0d17" media="(prefers-color-scheme: dark)" />
+
+    <!-- Same no-flash theme script as index.html. Keep both in sync. -->
+    <script>
+      (function () {
+        var theme = null;
+        try {
+          theme = localStorage.getItem('echoleaf-theme');
+        } catch (error) {
+          /* Storage unavailable. Fall back to the system theme. */
+        }
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/not-found.jsx"></script>
+  </body>
+</html>

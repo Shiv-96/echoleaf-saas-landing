@@ -1,0 +1,302 @@
+/*
+ * Global styles and design tokens for the Echoleaf landing page.
+ *
+ * How theming works:
+ * 1. Raw token values live in :root (light) and [data-theme="dark"] (dark), prefixed with --el-.
+ * 2. @theme inline maps them to Tailwind utilities (bg-canvas, text-ink, border-line, ...).
+ * 3. The inline script in index.html sets data-theme before first paint,
+ *    so every component switches theme without extra classes.
+ */
+
+@import "tailwindcss";
+
+/* Tailwind's dark: variant follows the data-theme attribute instead of the media query. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ---------- Design tokens: light ---------- */
+:root {
+  color-scheme: light;
+
+  /* Surfaces and text */
+  --el-canvas: #f8f9fc;
+  --el-surface: #ffffff;
+  --el-surface-muted: #eef0f7;
+  --el-line: #e1e4ee;
+  --el-ink: #0f1222;
+  --el-ink-muted: #545b70;
+
+  /* Brand and states */
+  --el-primary: #5b5bf6;
+  --el-primary-hover: #4848e0;
+  --el-primary-ink: #4646d8; /* primary as text, meets 4.5:1 on light surfaces */
+  --el-primary-soft: #ececfe;
+  --el-on-primary: #ffffff;
+  --el-accent: #0891b2;
+  --el-success: #047857;
+  --el-danger: #c81e3a;
+  --el-control-off: #858ca3; /* borders of inputs and the off switch, meets 3:1 */
+  --el-focus: #4646d8;
+
+  /* Effects */
+  --el-glow-1: rgb(91 91 246 / 0.16);
+  --el-glow-2: rgb(34 211 238 / 0.14);
+  --el-glow-strong: rgb(91 91 246 / 0.35);
+  --el-grid: rgb(15 18 34 / 0.05);
+  --el-shadow-card: 0 1px 2px rgb(15 18 34 / 0.04), 0 12px 32px -16px rgb(15 18 34 / 0.18);
+
+  /* Shape */
+  --el-radius-card: 1.25rem;
+  --el-radius-control: 0.75rem;
+}
+
+/* ---------- Design tokens: dark ---------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --el-canvas: #0b0d17;
+  --el-surface: #121527;
+  --el-surface-muted: #181c31;
+  --el-line: #262b45;
+  --el-ink: #eef0fa;
+  --el-ink-muted: #9aa3b8;
+
+  --el-primary-ink: #a3a3ff; /* lighter primary keeps text contrast on dark surfaces */
+  --el-primary-soft: rgb(91 91 246 / 0.16);
+  --el-accent: #22d3ee;
+  --el-success: #34d399;
+  --el-danger: #ff8a9a;
+  --el-control-off: #5d6488;
+  --el-focus: #a3a3ff;
+
+  --el-glow-1: rgb(91 91 246 / 0.28);
+  --el-glow-2: rgb(34 211 238 / 0.16);
+  --el-glow-strong: rgb(91 91 246 / 0.45);
+  --el-grid: rgb(238 240 250 / 0.05);
+  --el-shadow-card: 0 1px 2px rgb(0 0 0 / 0.3), 0 16px 40px -20px rgb(0 0 0 / 0.6);
+}
+
+/* ---------- Map tokens to Tailwind utilities ---------- */
+@theme inline {
+  --color-canvas: var(--el-canvas);
+  --color-surface: var(--el-surface);
+  --color-surface-muted: var(--el-surface-muted);
+  --color-line: var(--el-line);
+  --color-ink: var(--el-ink);
+  --color-ink-muted: var(--el-ink-muted);
+  --color-primary: var(--el-primary);
+  --color-primary-hover: var(--el-primary-hover);
+  --color-primary-ink: var(--el-primary-ink);
+  --color-primary-soft: var(--el-primary-soft);
+  --color-on-primary: var(--el-on-primary);
+  --color-accent: var(--el-accent);
+  --color-success: var(--el-success);
+  --color-danger: var(--el-danger);
+  --color-control-off: var(--el-control-off);
+
+  --radius-card: var(--el-radius-card);
+  --radius-control: var(--el-radius-control);
+
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans Variable", "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ---------- Base ---------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem; /* keeps anchored sections clear of the sticky header */
+  }
+
+  body {
+    @apply bg-canvas font-sans text-ink antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: var(--el-primary);
+    color: var(--el-on-primary);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--el-focus);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* ---------- Reusable utilities ---------- */
+
+/* Page width with a 16px gutter on phones. */
+@utility container-page {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+
+  @media (width >= 40rem) {
+    padding-inline: 1.5rem;
+  }
+}
+
+/* Consistent vertical rhythm between sections. */
+@utility section-pad {
+  padding-block: 5rem;
+
+  @media (width >= 48rem) {
+    padding-block: 7rem;
+  }
+}
+
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--el-radius-control);
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.25;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+  &:focus-visible {
+    outline: 2px solid var(--el-focus);
+    outline-offset: 3px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+@utility btn-primary {
+  background-color: var(--el-primary);
+  color: var(--el-on-primary);
+  box-shadow: 0 10px 24px -12px var(--el-glow-strong);
+
+  &:hover {
+    background-color: var(--el-primary-hover);
+  }
+}
+
+@utility btn-secondary {
+  border: 1px solid var(--el-line);
+  background-color: var(--el-surface);
+  color: var(--el-ink);
+
+  &:hover {
+    border-color: var(--el-control-off);
+  }
+}
+
+@utility card {
+  border: 1px solid var(--el-line);
+  border-radius: var(--el-radius-card);
+  background-color: var(--el-surface);
+  box-shadow: var(--el-shadow-card);
+}
+
+/* Small uppercase label above section headings. */
+@utility eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--el-primary-ink);
+}
+
+/* Gradient text, used sparingly on key words only. */
+@utility text-gradient {
+  background-image: linear-gradient(100deg, var(--el-primary-ink), var(--el-accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility shadow-glow {
+  box-shadow: 0 24px 60px -24px var(--el-glow-strong);
+}
+
+/* ---------- Decorative components ---------- */
+@layer components {
+  /* Soft glows plus a faint grid behind the hero. */
+  .hero-backdrop {
+    background:
+      radial-gradient(40rem 24rem at 15% 0%, var(--el-glow-1), transparent 70%),
+      radial-gradient(36rem 22rem at 85% 15%, var(--el-glow-2), transparent 70%);
+  }
+
+  .hero-backdrop::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--el-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--el-grid) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse at 50% 0%, black 30%, transparent 75%);
+  }
+
+  /* Final call-to-action band. Dark enough for white text across the whole gradient. */
+  .cta-band {
+    background:
+      radial-gradient(30rem 16rem at 90% 0%, rgb(34 211 238 / 0.35), transparent 70%),
+      linear-gradient(120deg, #312e81, #4f46e5 55%, #0e7490);
+  }
+
+  /* Scroll reveal: hidden until Reveal adds .is-visible. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .faq-panel:not([hidden]) {
+    animation: faq-fade-in 0.25s ease-out;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    .faq-panel:not([hidden]) {
+      animation: none;
+    }
+  }
+}
+
+@keyframes faq-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

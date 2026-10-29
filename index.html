@@ -1,0 +1,81 @@
+<!doctype html>
+<!--
+  Entry HTML for the Echoleaf landing page.
+  Holds all SEO and social meta tags, the no-flash theme script and
+  a hidden static form that lets Netlify Forms detect the signup form at deploy time.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary SEO -->
+    <title>Echoleaf | Turn customer feedback into product decisions</title>
+    <meta
+      name="description"
+      content="Echoleaf collects feedback from every channel, groups it into clear themes with AI and shows your team what to build next. Start a 14-day free trial."
+    />
+    <link rel="canonical" href="https://echoleaf-demo.netlify.app/" />
+
+    <!-- Open Graph and social previews -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Echoleaf" />
+    <meta property="og:title" content="Echoleaf | Turn customer feedback into product decisions" />
+    <meta
+      property="og:description"
+      content="Collect feedback from every channel, let AI find the themes and ship what customers actually need."
+    />
+    <meta property="og:url" content="https://echoleaf-demo.netlify.app/" />
+    <meta property="og:image" content="https://echoleaf-demo.netlify.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Echoleaf logo with the headline: Turn scattered feedback into product decisions" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Icons and browser UI colors -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#f8f9fc" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b0d17" media="(prefers-color-scheme: dark)" />
+
+    <!--
+      Apply the saved or system theme before the first paint to avoid a flash of the wrong theme.
+      The storage key must match STORAGE_KEY in src/hooks/useTheme.js.
+    -->
+    <script>
+      (function () {
+        var theme = null;
+        try {
+          theme = localStorage.getItem('echoleaf-theme');
+        } catch (error) {
+          /* Storage can be blocked (private mode, strict settings). Fall back to the system theme. */
+        }
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+  </head>
+  <body>
+    <!--
+      Static copy of the signup form for Netlify's build-time form detection.
+      The visible form is rendered by React (src/components/sections/Signup.jsx)
+      and must keep the same form name and field names.
+    -->
+    <form name="early-access" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="email" name="email" />
+      <input type="text" name="bot-field" />
+    </form>
+
+    <div id="root"></div>
+
+    <noscript>
+      <div style="max-width: 40rem; margin: 4rem auto; padding: 0 1rem; font-family: system-ui, sans-serif">
+        <h1>Echoleaf: turn customer feedback into product decisions</h1>
+        <p>Please enable JavaScript to view the full Echoleaf website.</p>
+      </div>
+    </noscript>
+
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
